@@ -16,8 +16,8 @@ The `ucr.fact` module itself uses Univention's provided Python module
 for accessing the Univention Config Registry. The fact module loads
 all UCR variables and dumps all of them as a JSON hash. Ansible itself
 reads that output and converts the hash to custom facts. The facts can
-be accessed as `local_facts.ucr['name/of/ucr/variable']`,
-e.g. `local_facts.ucr['server/role']`.
+be accessed as `ansible_local.ucr['name/of/ucr/variable']`,
+e.g. `ansible_local.ucr['server/role']`.
 
 Inside a playbook you should use two plays. The first play should
 solely consist of the `facts` role provided in this repository. The
@@ -55,9 +55,9 @@ This isn't entirely useful:
    releases.
 3. The `distribution_version` should also be something like `4.4` for
    easier comparison. If you need the actual patch level or errata
-   numbers, you can obtain them from the `local_facts.ucr` facts
-   mentioned above (`local_facts.ucr['version/patchlevel']` and
-   `local_facts.ucr['version/erratalevel']`).
+   numbers, you can obtain them from the `ansible_local.ucr` facts
+   mentioned above (`ansible_local.ucr['version/patchlevel']` and
+   `ansible_local.ucr['version/erratalevel']`).
 
 For this reason the `facts` role mentioned above sets three custom
 facts that'll allow easier distinction between distributions in
