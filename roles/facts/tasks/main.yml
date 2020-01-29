@@ -1,0 +1,28 @@
+---
+- name: install Univention fact
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+  check_mode: no
+
+- copy:
+    src: files/ucr.fact
+    dest: /etc/ansible/facts.d/ucr.fact
+    mode: "0755"
+  notify:
+    - re-read local facts
+  check_mode: no
+
+- meta: flush_handlers
+
+- when: "ansible_local.ucr"
+  set_fact:
+    my_facts_distribution: Univention
+    my_facts_distribution_release: "{{ ansible_local.ucr['version/version'] }}"
+    my_facts_distribution_version: "{{ ansible_local.ucr['version/version'] }}"
+
+- when: "not ansible_local.ucr"
+  set_fact:
+    my_facts_distribution: "{{ ansible_facts.distribution }}"
+    my_facts_distribution_release: "{{ ansible_facts.distribution_release }}"
+    my_facts_distribution_version: "{{ ansible_facts.distribution_version }}"

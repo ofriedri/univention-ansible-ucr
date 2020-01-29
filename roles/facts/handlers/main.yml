@@ -1,0 +1,2 @@
+- name: re-read local facts
+  setup: filter=ansible_local

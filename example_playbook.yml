@@ -1,0 +1,49 @@
+# This example playbook contains of two sections.
+#
+# The first section installs the custom "ucr.fact" file even in check
+# mode (!) on the managed machine. Afterwards it re-reads the
+# facts. That way the contents of the Univention Config Registry will
+# be available as facts if the managed system is a Univention system.
+#
+# Additionally a couple of facts called "my_facts_…" will be set that
+# will make checking for Univention easier.
+#
+# The second section adjusts the entry for "root" in the /etc/aliases
+# file. On Univention systems it sets the appropriate UCR variable
+# using the our own "univention_config_registry" module. On other
+# systems it will modify the file directly. The distinction between
+# the two cases is made by checking the aforementioned "my_facts_…"
+# facts.
+
+---
+- name: "gather custom facts"
+  hosts: "all"
+  gather_facts: true
+
+  roles:
+    - facts
+
+- name: "setup root mail alias"
+  hosts: "all"
+  gather_facts: false
+
+  # Ensure Postfix sends mail to 'root' to correct address.
+  tasks:
+    - when: "my_facts_distribution == 'Univention'"
+      name: "mail alias for root is set on Univention"
+      univention_config_registry:
+        keys:
+          mail/alias/root: "root@my.dom.ain"
+
+    - when: "my_facts_distribution != 'Univention'"
+      block:
+        - name: "mail alias for root is set on non-Univention"
+          lineinfile:
+            name: "/etc/aliases"
+            regexp: "^root:.*"
+            line: "root: root@my.dom.ain"
+          register: "output_"
+
+        - when: "output_.changed"
+          name: "rebuild aliases database"
+          command: "postalias /etc/aliases"
