@@ -122,10 +122,10 @@ Postfix mail alias for `root`.
 
 ## Copyright
 
-Copyright (c) 2020 Moritz Bunkus <m.bunkus@linet-services.de>
+Copyright (c) 2020 
+* Moritz Bunkus <m.bunkus@linet-services.de>
+* Oliver Friedrich <friedrich@univention.de>
 
-## License: CC0
+## License
 
-To the extent possible under law, Moritz Bunkus has waived all
-copyright and related or neighboring rights to Univention Ansible
-snippets. This work is published from: Germany.
+GNU General Public License v3.0
