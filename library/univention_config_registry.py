@@ -21,8 +21,10 @@ options:
             - A dict of keys to set or unset. In case of unsetting, the values
               are ignored.
             - Either this or 'kvlist' must be given.
+        type: str
         required: false
     kvlist:
+        description:
             - You pass in a list of dicts with this parameter instead of using
               a dict via 'keys'. Each of the dicts passed via 'kvlist' must
               contain the keys 'key' and 'value'. This allows the use of Jinja
@@ -34,7 +36,9 @@ options:
             - Either 'present' for setting the key/value pairs given with
               'keys' or 'absent' for unsetting the keys from the 'keys'
               dict. Default is 'present'.
-        required: false
+        type: str
+        choices: [ absent, present ]
+        default: present
 
 author:
     - Moritz Bunkus (@MoritzBunkus)
