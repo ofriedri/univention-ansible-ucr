@@ -6,12 +6,12 @@ ucr-facts
 Description
 ===========
 
-Create ansible local facts for Univention Config Registry variables. It includes a module that allows reading and setting these variables. The module is available after the ucr-facts role has been called
+Create ansible local facts for Univention Config Registry variables. It includes a module that allows reading and setting these variables. The module is available after the ucr-facts role has been called.
 
 Requirements
 ============
 
-This role and module are designed to run against the Univention Corporate Server, aka UCS.
+This role and module are designed to run against the [Univention Corporate Server](https://www.univention.com/products/ucs/), aka UCS.
 
 Module Name
 ===========
@@ -75,7 +75,7 @@ This role installs a custom fact file on the managed systenm, called `ucr.fact`
 and subsequently refreshes the facts known to ansible to make them availabe right
 away.
 
-The `ucr.fact` file is a script, written in python 2,that uses Univention's
+The `ucr.fact` file is a script, written in python 2, that uses Univention's
 provided Python module to access the Univention Config Registry. The fact
 module loads all UCR variables and outputs them as a JSON dictionary. Ansible
 reads the output and converts it to custom facts. The facts can be addressed
@@ -86,9 +86,9 @@ Inside a playbook it's advisable to use two plays. The first play should
 consist of the `facts` role provided in this repository only. The
 second play then contains the rest of your tasks. That way all the UCR
 variables will be available to any task or role that is called from the second
-play
+play.
 
-The second play can ommit gathering facts as that has been done already. This
+The second play can omit gathering facts as that has been done already. This
 will also be advantageous to this play's execution time.
 
 An example playbook is available at the end of this file.
@@ -114,12 +114,12 @@ This isn't entirely useful:
    releases.
 3. The same is true for `distribution_version`, which should be the UCS
    version (`4.4`for example) instead of the Debian version for easier
-   comparability. patch level and errata numbers now can be obtained
-   from the `ansible_local.ucr` facts mentioned above
+   comparability. Patch level and Errata numbers now can be obtained
+   from the `ansible_local.ucr` facts mentioned above.
    Those can be found under `ansible_local.ucr['version/patchlevel']` and
    `ansible_local.ucr['version/erratalevel']`.
 
-In order to rectify this this role sets three custom facts that allow for
+In order to rectify this, this role sets three custom facts that allow for
 easier distinction between UCS distributions in subsequent roles & tasks.
 On UCS systems they're set to UCS-relevant values. In case you run this role
 against a non-UCS system these are set to ansible's distribution variables.
@@ -149,7 +149,7 @@ Note that the pre-existing facts `ansible_facts.distribution…` are _not_
 modified in any way. The `set_fact` module is not able to overwrite them.
 2The embedded module _could overwrite the global counter-part
 `ansible_facts_distribution…`, but not the one inside the
-`ansible_facts` hash. In aqddition to that the global facts only exist if
+`ansible_facts` hash. In addition to that the global facts only exist if
 the `ansible.cfg` setting `inject_facts_as_vars` is set to `True`.
 
 ### Modifying Univention Config Variables
@@ -188,7 +188,7 @@ GNU General Public License v3.0
 ## Example Playbook
 
 ```
-# This example playbook contains of two sections.
+# This example playbook consists of two sections.
 #
 # The first section installs the custom "ucr.fact" file even in check
 # mode (!) on the managed machine. Afterwards it re-reads the
