@@ -31,8 +31,8 @@ Dependencies
 
 Univention config\_registry python module, which is already installed on UCS systems
 
-Example Playbooks
-=================
+Examples
+========
 
 The role can be used like this:
 ```
