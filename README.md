@@ -171,7 +171,7 @@ displayed using ansible-doc.
 
 The module supports ansible's check mode.
 
-For an example for its usage See the example playbook at the end of this file
+For an example for its usage see the example playbook at the end of this file
 which uses the module to set the Postfix mail alias for `root`.
 
 ## Copyright
